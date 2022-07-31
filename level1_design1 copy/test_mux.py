@@ -6,14 +6,13 @@ from cocotb.triggers import Timer
 @cocotb.test()
 async def test_mux(dut):
     """Test for mux2"""
-    select = 5'b00011
-    input3 = 5
+    select = 12
+    input12 = 1
 
     dut.sel.value = select
-    dut.inp3.value = input3
+    dut.inp12.value = input12
 
     await Timer(2, units='ns')
 
-    assert dut.out.value == input3 , "Mux result is incorrect: {input3} and {select} != {OUT}, expected value={EXP}".format(
-            input3 =int(dut.inp3.value), select=int(dut.sel.value), OUT=int(dut.out.value), EXP=input3)
-    #cocotb.log.info('##### CTB: Develop your test here ########')
+    assert dut.out.value == input12 , "Mux result is incorrect: {input12} and {select} != {OUT}, expected value={EXP}".format(
+            input12 =int(dut.inp12.value), select=int(dut.sel.value), OUT=int(dut.out.value), EXP=input12)
