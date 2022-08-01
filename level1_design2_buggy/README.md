@@ -1,4 +1,4 @@
-# MUX Design Verification
+# SEQUENCE_1011_DETECTOR Design Verification
 
 Raedme file by Gopisetty Haritha
 
@@ -9,7 +9,7 @@ The verification environment is setup using [Vyoma's UpTickPro](https://vyomasys
 
 ## Verification Environment
 
-The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (adder module here) which takes in 31 inputs each 2-bit  and 5 bit select line and gives 2-bit output
+The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (adder module here) which takes in 1-bit input signal and 1 bit reset signal and clock signal and gives 1-bit output
 
 The values are assigned to the input port using 
 ```
