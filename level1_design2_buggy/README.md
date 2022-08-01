@@ -5,7 +5,7 @@ Raedme file by Gopisetty Haritha
 The verification environment is setup using [Vyoma's UpTickPro](https://vyomasystems.com) provided for the hackathon.
 
 
-![](https://user-images.githubusercontent.com/83575446/182013260-17b68455-53dd-4f6a-9373-bd353c5e6efe.png)
+![](https://user-images.githubusercontent.com/83575446/182147208-76e39ec1-2209-46fe-8e5e-25dd21eb01b8.png)
 
 ## Verification Environment
 
@@ -25,7 +25,7 @@ assert dut.out.value == input12 , "Mux result is incorrect: {input12} and {selec
                      AssertionError: Mux result is incorrect: 1 and 12 != 0, expected value=1
 ```
 
-![](https://user-images.githubusercontent.com/83575446/182013296-91377a05-cca7-449c-bef3-9068ae10383e.png)
+
 
 ## Test Scenario **(Important)**
 - Test Inputs: select=12 input12=1
@@ -47,7 +47,7 @@ For the mux design, the logic should be ``5'b01100: out = inp12;  `` instead of 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-![](https://user-images.githubusercontent.com/83575446/182013309-dbcde8f2-ed9a-4603-9992-51170460a01a.png)
+![](https://user-images.githubusercontent.com/83575446/182147375-1ddea87c-aa70-4dfa-b1cf-ee334fbd0174.png)
 
 
 ## Verification Strategy
