@@ -19,6 +19,6 @@ module singleportRAM(
         addr_reg <= addr; 
     end
  
-  assign q = ram[addr_reg];
+  assign q = addr_reg;
   
 endmodule
