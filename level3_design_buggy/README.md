@@ -1,15 +1,15 @@
-# MUX Design Verification
+# singleportRAM Design Verification
 
 Raedme file by Gopisetty Haritha
 
 The verification environment is setup using [Vyoma's UpTickPro](https://vyomasystems.com) provided for the hackathon.
 
 
-![](https://user-images.githubusercontent.com/83575446/182013260-17b68455-53dd-4f6a-9373-bd353c5e6efe.png)
+![](https://user-images.githubusercontent.com/83575446/182152035-cb0c54fb-fc6d-45ea-876c-f5eaf4cfc0ba.png)
 
 ## Verification Environment
 
-The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (adder module here) which takes in 31 inputs each 2-bit  and 5 bit select line and gives 2-bit output
+The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (singleportRAM module here) which takes in 31 inputs each 2-bit  and 5 bit select line and gives 2-bit output
 
 The values are assigned to the input port using 
 ```
@@ -21,8 +21,8 @@ The assert statement is used for comparing the adder's outut to the expected val
 
 The following error is seen:
 ```
-assert dut.out.value == input12 , "Mux result is incorrect: {input12} and {select} != {OUT}, expected value={EXP}".format(input12 =int(dut.inp12.value), select=int(dut.sel.value), OUT=int(dut.out.value), EXP=input12)
-                     AssertionError: Mux result is incorrect: 1 and 12 != 0, expected value=1
+ assert dut.q.value == 0x1,f"Output is incorrect {dut.q}!=0x1"
+                     AssertionError: Output is incorrect 00000000!=0x1
 ```
 
 ![](https://user-images.githubusercontent.com/83575446/182013296-91377a05-cca7-449c-bef3-9068ae10383e.png)
@@ -47,7 +47,7 @@ For the mux design, the logic should be ``5'b01100: out = inp12;  `` instead of 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-![](https://user-images.githubusercontent.com/83575446/182013309-dbcde8f2-ed9a-4603-9992-51170460a01a.png)
+![](https://user-images.githubusercontent.com/83575446/182150353-803f68b4-136c-4d2a-92af-d3f3e9fe52ea.png)
 
 
 ## Verification Strategy
