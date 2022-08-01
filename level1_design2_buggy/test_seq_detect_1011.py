@@ -26,16 +26,41 @@ async def test_seq_bug1(dut):
     # reset
     dut.reset.value = 0
     await Timer(2, units="ns")  # wait a bit
-    dut._log.info("\nbefore %s",dut.reset.value)
     await RisingEdge(dut.clk)  
     dut.reset.value = 1
     await Timer(2, units="ns")  # wait a bit
     await RisingEdge(dut.clk)
-    dut._log.info("\nbefore %s",dut.reset.value)
+    dut.inp_bit.value = 0
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 0
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
     dut.inp_bit.value = 1
     await Timer(2, units="ns")  # wait a bit
     await RisingEdge(dut.clk)
-    dut._log.info("\nAfter %s",dut.inp_bit.value)
+    dut.inp_bit.value = 0
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    dut.inp_bit.value = 0
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 0
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 0
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 0
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    await Timer(2, units="ns")  # wait a bit
+    await RisingEdge(dut.clk)
     dut.inp_bit.value = 0
     await Timer(2, units="ns")  # wait a bit
     await RisingEdge(dut.clk)
