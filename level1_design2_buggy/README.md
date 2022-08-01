@@ -52,11 +52,27 @@ Output mismatches for the above inputs proving that there is a design bug
 Based on the above test input and analysing the design, we see the following
 
 ```
-     5'b01011: out = inp11;
-      5'b01101: out = inp12;        ====> BUG
-      5'b01101: out = inp13;           
+    SEQ_1011:
+      begin
+        next_state = IDLE;   ====> BUG   
+      end            
 ```
-For the mux design, the logic should be ``5'b01100: out = inp12;  `` instead of ``5'b01101: out = inp12;  `` as in the design code.
+For the sequence detector design, the logic should be
+
+`` SEQ_1011:
+      begin
+        if(input_bit == 1)
+          next_state = SEQ_011;
+        else
+          next_state = IDLE;
+      end  `` 
+      instead of 
+`` SEQ_1011:
+      begin
+        next_state = IDLE;   ====> BUG   
+      end     ``
+      
+  as in the design code.
 
 
 ![](https://user-images.githubusercontent.com/83575446/182147375-1ddea87c-aa70-4dfa-b1cf-ee334fbd0174.png)
@@ -64,4 +80,4 @@ For the mux design, the logic should be ``5'b01100: out = inp12;  `` instead of 
 
 ## Verification Strategy
 
-I've observed the 31 inputs and found that input12 and input13 are defined with same selectline.So,I gave a test input 1 on selectline defined by input12 and observed the output.Since,input12 & input13 are defined by same select line it gave wrong output
+As this is a moore overlapping sequence detector, it must detect the sequence 1011 from the contiuatiuon of previous input. In the input I've provided two such sequences where 1011 can be detected twice and Latest ouput i.e. when the sequence is detected for the second time the ouput which is high should be displayed. Since, the last state is terminated to IDLE state the second sequence is not detected. which made the output to print a 0 causing the bug. So,I've corrected by changing the last state (SQ1011).
