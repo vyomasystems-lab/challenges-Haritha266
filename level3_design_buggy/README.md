@@ -13,8 +13,11 @@ The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explaine
 
 The values are assigned to the input port using 
 ```
-    dut.sel.value = 12
-    dut.inp12.value = 1
+    dut.data.value = 0x1
+    dut.addr.value = 00000
+    dut.we.value = 1
+    dut.addr.value = 00000
+    dut.we.value = 0
 ```
 
 The assert statement is used for comparing the adder's outut to the expected value.
