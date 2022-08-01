@@ -1,6 +1,6 @@
 # singleportRAM Design Verification
 
-Raedme file by Gopisetty Haritha
+Readme file by Gopisetty Haritha
 
 The verification environment is setup using [Vyoma's UpTickPro](https://vyomasystems.com) provided for the hackathon.
 
@@ -9,7 +9,7 @@ The verification environment is setup using [Vyoma's UpTickPro](https://vyomasys
 
 ## Verification Environment
 
-The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (singleportRAM module here) which takes in 31 inputs each 2-bit  and 5 bit select line and gives 2-bit output
+The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (singleportRAM module here) which takes 8 bit hex input data and 5 bit address and a write, clock signals. Thus it forms 8*64 bit ram  and gives 8-bit hex output i.e whatever input is provided will be read back
 
 The values are assigned to the input port using 
 ```
@@ -20,18 +20,23 @@ The values are assigned to the input port using
     dut.we.value = 0
 ```
 
-The assert statement is used for comparing the adder's outut to the expected value.
+The assert statement is used for comparing the singleportRAM's outut to the expected value.
 
 The following error is seen:
 ```
  assert dut.q.value == 0x1,f"Output is incorrect {dut.q}!=0x1"
-                     AssertionError: Output is incorrect 00000000!=0x1
+                     AssertionError: Output is incorrect 00000!=0x1
 ```
 
 ## Test Scenario **(Important)**
-- Test Inputs: select=12 input12=1
-- Expected Output: out=1
-- Observed Output in the DUT dut.out=0
+- Test Inputs:
+    dut.data.value = 0x1
+    dut.addr.value = 00000
+    dut.we.value = 1
+    dut.addr.value = 00000
+    dut.we.value = 0
+- Expected Output: dut.q.value = 0x1
+- Observed Output in the DUT dut.q.value = 00000
 
 Output mismatches for the above inputs proving that there is a design bug
 
@@ -39,14 +44,21 @@ Output mismatches for the above inputs proving that there is a design bug
 Based on the above test input and analysing the design, we see the following
 
 ```
-     5'b01011: out = inp11;
-      5'b01101: out = inp12;        ====> BUG
-      5'b01101: out = inp13;           
+     always @ (posedge clk)
+    begin
+      if(we)
+        ram[addr] <= data;
+      else
+        addr_reg <= addr; 
+    end
+ 
+  assign q = addr_reg;        ====> BUG
+               
 ```
-For the mux design, the logic should be ``5'b01100: out = inp12;  `` instead of ``5'b01101: out = inp12;  `` as in the design code.
+For the design, the logic should be ``assign q = ram[addr_reg];  `` instead of ``assign q = addr_reg;  `` as in the design code.
 
-## Design Fix
-Updating the design and re-running the test makes the test pass.
+## Failed testcase
+
 
 ![](https://user-images.githubusercontent.com/83575446/182150353-803f68b4-136c-4d2a-92af-d3f3e9fe52ea.png)
 
