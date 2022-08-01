@@ -14,6 +14,21 @@ The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explaine
 The values are assigned to the input port using 
 ```
     dut.reset.value = 0
+    dut.inp_bit.value = 1
+    dut.clk.value = 0
+```
+
+The assert statement is used for comparing the SEQUENCE_1011_DETECTOR's outut to the expected value.
+
+The following error is seen:
+```
+ assert dut.seq_seen.value == 1,f"Output is incorrect {dut.seq_seen}!=1"
+                     AssertionError: Output is incorrect 0! = 1
+```
+
+## Test Scenario **(Important)**
+- Test Inputs: 
+    dut.reset.value = 0
     dut.reset.value = 1
     dut.inp_bit.value = 0
     dut.inp_bit.value = 0
@@ -28,22 +43,8 @@ The values are assigned to the input port using
     dut.inp_bit.value = 0
     dut.inp_bit.value = 1
     dut.inp_bit.value = 1
-```
-
-The assert statement is used for comparing the SEQUENCE_1011_DETECTOR's outut to the expected value.
-
-The following error is seen:
-```
- assert dut.seq_seen.value == 1,f"Output is incorrect {dut.seq_seen}!=1"
-                     AssertionError: Output is incorrect 0! = 1
-```
-
-
-
-## Test Scenario **(Important)**
-- Test Inputs: select=12 input12=1
-- Expected Output: out=1
-- Observed Output in the DUT dut.out=0
+- Expected Output: seq_seen = 1
+- Observed Output in the DUT seq_seen =0
 
 Output mismatches for the above inputs proving that there is a design bug
 
