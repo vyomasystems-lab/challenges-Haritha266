@@ -7,6 +7,10 @@ The verification environment is setup using [Vyoma's UpTickPro](https://vyomasys
 
 ![](https://user-images.githubusercontent.com/83575446/182152035-cb0c54fb-fc6d-45ea-876c-f5eaf4cfc0ba.png)
 
+# singleportRAM Design
+
+![](https://user-images.githubusercontent.com/83575446/182157708-e1574277-8feb-40ce-90a0-1c7a6f3d6cf9.jpg)
+
 ## Verification Environment
 
 The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (singleportRAM module here) which takes 8 bit hex input data and 5 bit address and a write, clock signals. Thus it forms 8*64 bit ram  and gives 8-bit hex output i.e whatever input is provided will be read back
@@ -21,6 +25,7 @@ The values are assigned to the input port using
 ```
 
 The assert statement is used for comparing the singleportRAM's outut to the expected value.
+
 
 The following error is seen:
 ```
@@ -65,6 +70,6 @@ For the design, the logic should be ``assign q = ram[addr_reg];  `` instead of `
 
 ## Verification Strategy
 
-I've observed the 31 inputs and found that input12 and input13 are defined with same selectline.So,I gave a test input 1 on selectline defined by input12 and observed the output.Since,input12 & input13 are defined by same select line it gave wrong output
+As it is a single port RAM, it can be accessed with one address at a time. During each clock cycle, only one memory cell can be read or written If write enable pin is high, data is written into RAM and if it is low, data is read from by RAM. In the design the ouput is assigned with address instead of value at the address which caused the bug. So at the ouput q, the address is printed instead of the data at that address
 
-## Is the verification complete ?
+
