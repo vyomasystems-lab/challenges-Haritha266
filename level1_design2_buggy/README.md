@@ -69,7 +69,7 @@ For the sequence detector design, the logic should be
       instead of 
 `` SEQ_1011:
       begin
-        next_state = IDLE;   ====> BUG   
+        next_state = IDLE;   
       end     ``
       
   as in the design code.
