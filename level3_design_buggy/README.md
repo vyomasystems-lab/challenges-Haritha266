@@ -25,8 +25,6 @@ The following error is seen:
                      AssertionError: Output is incorrect 00000000!=0x1
 ```
 
-![](https://user-images.githubusercontent.com/83575446/182013296-91377a05-cca7-449c-bef3-9068ae10383e.png)
-
 ## Test Scenario **(Important)**
 - Test Inputs: select=12 input12=1
 - Expected Output: out=1
