@@ -9,7 +9,7 @@ The verification environment is setup using [Vyoma's UpTickPro](https://vyomasys
 
 ## Verification Environment
 
-The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (mux module here) which takes in 4-bit inputs *a* and *b* and gives 5-bit output *sum*
+The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (adder module here) which takes in 31 inputs each 2-bit  and 5 bit select line and gives 2-bit output
 
 The values are assigned to the input port using 
 ```
@@ -28,9 +28,9 @@ assert dut.out.value == input12 , "Mux result is incorrect: {input12} and {selec
 ![](https://user-images.githubusercontent.com/83575446/182013296-91377a05-cca7-449c-bef3-9068ae10383e.png)
 
 ## Test Scenario **(Important)**
-- Test Inputs: a=7 b=5
-- Expected Output: sum=12
-- Observed Output in the DUT dut.sum=2
+- Test Inputs: select=12 input12=1
+- Expected Output: out=1
+- Observed Output in the DUT dut.out=0
 
 Output mismatches for the above inputs proving that there is a design bug
 
@@ -51,5 +51,7 @@ Updating the design and re-running the test makes the test pass.
 
 
 ## Verification Strategy
+
+I've observed the 31 inputs and found that input12 and input13 are defined with same selectline.So,I gave a test input 1 on selectline defined by input12 and observed the output.Since,input12 & input13 are defined by same select line it gave wrong output
 
 ## Is the verification complete ?
