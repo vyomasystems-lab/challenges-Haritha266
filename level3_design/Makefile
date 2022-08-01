@@ -4,10 +4,12 @@ TOPLEVEL_LANG ?= verilog
 
 PWD=$(shell pwd)
 
-VERILOG_SOURCES = $(PWD)/               # provide your design path
+#export PYTHONPATH := $(PWD):$(PYTHONPATH)  # reference model
 
-TOPLEVEL :=           # design file
-MODULE   :=     # test file
+VERILOG_SOURCES = $(PWD)/singleportRAM.v              # provide your design path
+
+TOPLEVEL :=  singleportRAM         # design file
+MODULE   :=   test_singleportRAM  # test file
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
